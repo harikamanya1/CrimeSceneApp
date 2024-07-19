@@ -28,7 +28,7 @@ app.use('/api/logs', logRoutes);
 app.use('/api/evidence', evidenceRoutes);
 
 // MongoDB connection
-mongoose.connect('mongodb+srv://harika:Harika@cluster0.kg2cx0q.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
+mongoose.connect('mongodb+srv://Crimescene:Progience@cluster0.zyn5f1m.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
