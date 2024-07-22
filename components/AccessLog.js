@@ -1,94 +1,72 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { Picker } from '@react-native-picker/picker';
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { FontAwesome } from '@expo/vector-icons';
 
-export default function AccessPage() {
-  const [type, setType] = useState('');
-  const [date, setDate] = useState(new Date());
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [person, setPerson] = useState('');
-  const [location, setLocation] = useState('');
-  const [purpose, setPurpose] = useState('');
-  const [description, setDescription] = useState('');
+const AccessLog = () => {
+  const navigation = useNavigation();
+  const [logs, setLogs] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const onChangeDate = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShowDatePicker(false);
-    setDate(currentDate);
+  useEffect(() => {
+    // Fetch logs from your backend or state
+    // For now, we'll use dummy data
+    setLogs([
+      { id: '1', date: '01/15/2022', time: '10:00 AM', description: 'Entry 1', userId: 'User1' },
+      { id: '2', date: '01/16/2022', time: '11:00 AM', description: 'Entry 2', userId: 'User2' },
+      // Add more dummy entries
+    ]);
+  }, []);
+
+  const handleSearch = () => {
+    // Implement search functionality here
+    // For now, we'll filter the logs locally
+    const filteredLogs = logs.filter(log => 
+      log.description.includes(searchTerm) || 
+      log.userId.includes(searchTerm)
+    );
+    setLogs(filteredLogs);
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Access</Text>
-      <View style={styles.section}>
-        <Text style={styles.label}>Type</Text>
-        <Picker
-          selectedValue={type}
-          onValueChange={(itemValue) => setType(itemValue)}
-          style={styles.picker}
-        >
-          <Picker.Item label="Select Type" value="" />
-          <Picker.Item label="Entry" value="Entry" />
-          <Picker.Item label="Exit" value="Exit" />
-        </Picker>
+      <View style={styles.header}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search logs"
+          value={searchTerm}
+          onChangeText={setSearchTerm}
+        />
+        <TouchableOpacity onPress={handleSearch}>
+          <FontAwesome name="search" size={24} color="#000" />
+        </TouchableOpacity>
       </View>
-      <View style={styles.section}>
-        <Text style={styles.label}>Date & time of access</Text>
-        <Button onPress={() => setShowDatePicker(true)} title={date.toLocaleString()} color="#FFD700" />
-        {showDatePicker && (
-          <DateTimePicker
-            value={date}
-            mode="datetime"
-            display="default"
-            onChange={onChangeDate}
-          />
+      <FlatList
+        data={logs}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.logItem}>
+            <Text style={styles.logText}>{item.date} {item.time}</Text>
+            <Text style={styles.logText}>{item.description}</Text>
+            <Text style={styles.logText}>User ID: {item.userId}</Text>
+            <TouchableOpacity
+              style={styles.editButton}
+              onPress={() => navigation.navigate('EditEntry', { log: item })}
+            >
+              <Text style={styles.editButtonText}>Edit</Text>
+            </TouchableOpacity>
+          </View>
         )}
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.label}>Person who accessed the scene</Text>
-        <TextInput
-          style={styles.input}
-          value={person}
-          onChangeText={(text) => setPerson(text)}
-        />
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.label}>Access location</Text>
-        <Picker
-          selectedValue={location}
-          onValueChange={(itemValue) => setLocation(itemValue)}
-          style={styles.picker}
-        >
-          <Picker.Item label="Select Location" value="" />
-          <Picker.Item label="Front Porch" value="Front Porch" />
-          <Picker.Item label="Back Door" value="Back Door" />
-        </Picker>
-      </View>
-      <Text style={styles.heading}>Purpose</Text>
-      <View style={styles.section}>
-        <Text style={styles.label}>Purpose of access</Text>
-        <Picker
-          selectedValue={purpose}
-          onValueChange={(itemValue) => setPurpose(itemValue)}
-          style={styles.picker}
-        >
-          <Picker.Item label="Select Purpose" value="" />
-          <Picker.Item label="Medical walkthrough" value="Medical walkthrough" />
-          <Picker.Item label="Inspection" value="Inspection" />
-        </Picker>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.label}>Additional access description</Text>
-        <TextInput
-          style={styles.input}
-          value={description}
-          onChangeText={(text) => setDescription(text)}
-        />
-      </View>
+      />
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={() => navigation.navigate('AddEntry')}
+      >
+        <Text style={styles.addButtonText}>Add Entry</Text>
+      </TouchableOpacity>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -96,30 +74,57 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#FFF8DC',
   },
-  heading: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#FFD700',
-    marginVertical: 10,
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
   },
-  section: {
-    marginVertical: 10,
-  },
-  label: {
-    fontSize: 16,
-    color: '#000',
-    marginBottom: 5,
-  },
-  input: {
-    height: 40,
-    borderColor: '#FFD700',
+  searchInput: {
     borderWidth: 1,
-    paddingLeft: 8,
-    backgroundColor: 'white',
+    borderColor: '#ccc',
+    padding: 8,
+    flex: 1,
+    marginRight: 10,
   },
-  picker: {
-    height: 50,
-    backgroundColor: 'white',
+  logItem: {
+    backgroundColor: '#fff',
+    padding: 10,
+    marginVertical: 5,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  logText: {
+    fontSize: 16,
+    flex: 1,
+  },
+  editButton: {
+    backgroundColor: '#FFD700',
+    padding: 10,
+    borderRadius: 5,
+    marginLeft: 10,
+  },
+  editButtonText: {
     color: '#000',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  addButton: {
+    backgroundColor: '#FFD700',
+    padding: 15,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  addButtonText: {
+    color: '#000',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
+
+export default AccessLog;

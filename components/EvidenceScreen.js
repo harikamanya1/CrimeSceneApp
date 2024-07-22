@@ -1,132 +1,74 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { Picker } from '@react-native-picker/picker';
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { FontAwesome } from '@expo/vector-icons';
 
-export default function EvidenceScreen() {
-  const [date, setDate] = useState(new Date());
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [evidenceNumber, setEvidenceNumber] = useState('');
-  const [description, setDescription] = useState('');
-  const [location, setLocation] = useState('');
-  const [collector, setCollector] = useState('');
-  const [custody, setCustody] = useState('');
-  const [packaging, setPackaging] = useState('');
-  const [analysis, setAnalysis] = useState(['']);
+const EvidenceScreen = () => {
+  const navigation = useNavigation();
+  const [evidences, setEvidences] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const onChangeDate = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShowDatePicker(false);
-    setDate(currentDate);
-  };
+  useEffect(() => {
+    // Fetch evidences from your backend or state
+    // For now, we'll use dummy data
+    setEvidences([
+      { id: '1', type: 'Document', description: 'Case report', date: '01/15/2022', associatedCase: 'Case1' },
+      { id: '2', type: 'Photo', description: 'Crime scene photo', date: '01/16/2022', associatedCase: 'Case2' },
+      // Add more dummy entries
+    ]);
+  }, []);
 
-  const addAnalysis = () => {
-    setAnalysis([...analysis, '']);
-  };
-
-  const removeAnalysis = (index) => {
-    setAnalysis(analysis.filter((_, i) => i !== index));
-  };
-
-  const updateAnalysis = (index, value) => {
-    const updatedAnalysis = analysis.map((item, i) => (i === index ? value : item));
-    setAnalysis(updatedAnalysis);
+  const handleSearch = () => {
+    // Implement search functionality here
+    // For now, we'll filter the evidences locally
+    const filteredEvidences = evidences.filter(evidence => 
+      evidence.description.includes(searchTerm) || 
+      evidence.associatedCase.includes(searchTerm) ||
+      evidence.type.includes(searchTerm)
+    );
+    setEvidences(filteredEvidences);
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.heading}>Evidence</Text>
-      <View style={styles.section}>
-        <Image source={{ uri: 'https://via.placeholder.com/150' }} style={styles.image} />
-        <View style={styles.imageButtons}>
-          <Button title="Camera" onPress={() => {}} color="#FFD700" />
-          <Button title="Library" onPress={() => {}} color="#FFD700" />
-        </View>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.label}>Evidence number</Text>
+    <View style={styles.container}>
+      <View style={styles.header}>
         <TextInput
-          style={styles.input}
-          value={evidenceNumber}
-          onChangeText={(text) => setEvidenceNumber(text)}
+          style={styles.searchInput}
+          placeholder="Search evidences"
+          value={searchTerm}
+          onChangeText={setSearchTerm}
         />
+        <TouchableOpacity onPress={handleSearch}>
+          <FontAwesome name="search" size={24} color="#000" />
+        </TouchableOpacity>
       </View>
-      <View style={styles.section}>
-        <Text style={styles.label}>Evidence description</Text>
-        <TextInput
-          style={styles.textArea}
-          value={description}
-          onChangeText={(text) => setDescription(text)}
-          multiline={true}
-        />
-        <Button title="Edit" onPress={() => {}} color="#FFD700" />
-      </View>
-      <Text style={styles.heading}>Collection</Text>
-      <View style={styles.section}>
-        <Text style={styles.label}>Date and time of collection</Text>
-        <Button onPress={() => setShowDatePicker(true)} title={date.toLocaleString()} color="#FFD700" />
-        {showDatePicker && (
-          <DateTimePicker
-            value={date}
-            mode="datetime"
-            display="default"
-            onChange={onChangeDate}
-          />
+      <FlatList
+        data={evidences}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.evidenceItem}>
+            <Text style={styles.evidenceText}>{item.type}</Text>
+            <Text style={styles.evidenceText}>{item.description}</Text>
+            <Text style={styles.evidenceText}>{item.date}</Text>
+            <Text style={styles.evidenceText}>{item.associatedCase}</Text>
+            <TouchableOpacity
+              style={styles.editButton}
+              onPress={() => navigation.navigate('EditEvidence', { evidence: item })}
+            >
+              <Text style={styles.editButtonText}>Edit</Text>
+            </TouchableOpacity>
+          </View>
         )}
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.label}>Location of evidence</Text>
-        <Picker
-          selectedValue={location}
-          onValueChange={(itemValue) => setLocation(itemValue)}
-          style={styles.picker}
-        >
-          <Picker.Item label="Select Location" value="" />
-          <Picker.Item label="Front door of residence" value="Front door of residence" />
-          <Picker.Item label="Back door of residence" value="Back door of residence" />
-        </Picker>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.label}>Collector</Text>
-        <TextInput
-          style={styles.input}
-          value={collector}
-          onChangeText={(text) => setCollector(text)}
-        />
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.label}>Chain of custody (turned over to)</Text>
-        <TextInput
-          style={styles.input}
-          value={custody}
-          onChangeText={(text) => setCustody(text)}
-        />
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.label}>Packaged in</Text>
-        <TextInput
-          style={styles.input}
-          value={packaging}
-          onChangeText={(text) => setPackaging(text)}
-        />
-      </View>
-      <Text style={styles.heading}>Analysis</Text>
-      {analysis.map((item, index) => (
-        <View key={index} style={styles.section}>
-          <TextInput
-            style={styles.input}
-            value={item}
-            onChangeText={(text) => updateAnalysis(index, text)}
-          />
-          <TouchableOpacity onPress={() => removeAnalysis(index)}>
-            <Text style={styles.removeButton}>X</Text>
-          </TouchableOpacity>
-        </View>
-      ))}
-      <Button title="+ Analysis" onPress={addAnalysis} color="#FFD700" />
-    </ScrollView>
+      />
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={() => navigation.navigate('AddEvidence')}
+      >
+        <Text style={styles.addButtonText}>Add Entry</Text>
+      </TouchableOpacity>
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -134,52 +76,57 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#FFF8DC',
   },
-  heading: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#FFD700',
-    marginVertical: 10,
-  },
-  section: {
-    marginVertical: 10,
-  },
-  label: {
-    fontSize: 16,
-    color: '#000',
-    marginBottom: 5,
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    paddingLeft: 8,
-    backgroundColor: 'white',
-    flex: 1,
-  },
-  textArea: {
-    height: 60,
-    borderColor: 'gray',
-    borderWidth: 1,
-    paddingLeft: 8,
-    backgroundColor: 'white',
-  },
-  image: {
-    width: 150,
-    height: 150,
-    marginBottom: 10,
-  },
-  imageButtons: {
+  header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
   },
-  picker: {
-    height: 50,
-    backgroundColor: 'white',
-    color: 'black',
+  searchInput: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 8,
+    flex: 1,
+    marginRight: 10,
   },
-  removeButton: {
-    color: '#FFD700',
+  evidenceItem: {
+    backgroundColor: '#fff',
+    padding: 10,
+    marginVertical: 5,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  evidenceText: {
+    fontSize: 16,
+    flex: 1,
+  },
+  editButton: {
+    backgroundColor: '#FFD700',
+    padding: 10,
+    borderRadius: 5,
     marginLeft: 10,
+  },
+  editButtonText: {
+    color: '#000',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  addButton: {
+    backgroundColor: '#FFD700',
+    padding: 15,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  addButtonText: {
+    color: '#000',
     fontSize: 18,
+    fontWeight: 'bold',
   },
 });
+
+export default EvidenceScreen;

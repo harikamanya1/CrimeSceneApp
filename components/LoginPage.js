@@ -13,9 +13,6 @@ const LoginPage = ({ navigation }) => {
   return (
     <ImageBackground source={require('../assets/crime3.jpg')} style={styles.background} resizeMode="cover">
       <View style={styles.overlay}>
-        {/* <View style={styles.header}>
-          <Image source={require('../assets/favicon.png')} style={styles.icon} />
-        </View> */}
         <View style={styles.form}>
           <Image source={require('../assets/icon.png')} style={styles.logo} />
           <Text style={styles.title}>PTRAX</Text>
@@ -51,35 +48,19 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   overlay: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.3)', // semi-transparent black overlay
-    width: '100%',
-    height: '100%',
-  },
-  // header: {
-  //   flex: 1,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  // },
-  icon: {
-    width: 100,
-    height: 100,
   },
   form: {
-    flex: 2,
-    // backgroundColor: 'rgba(255, 248, 220, 0.8)', // Light yellow form background with transparency
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    backgroundColor: 'rgba(0,0,0,0.3)', // semi-transparent black overlay
+    borderRadius: 10,
     padding: 20,
     alignItems: 'center',
     width: '90%',
-      marginTop:'10%',
   },
   logo: {
     width: 80,
@@ -106,7 +87,7 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 20,
     paddingHorizontal: 10,
-    color: '#fff', // Black text
+    color: '#fff', // White text
   },
   button: {
     backgroundColor: '#FFD700', // Gold button
@@ -122,7 +103,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   footerText: {
-    color: '#fff', // Gray footer text
+    color: '#fff', // White footer text
     marginTop: 10,
     fontWeight:'bold',
   },
