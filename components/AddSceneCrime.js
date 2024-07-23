@@ -10,7 +10,6 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
-  Modal,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker"; // Ensure correct import
 import { Picker } from "@react-native-picker/picker";
@@ -18,8 +17,8 @@ import { Picker } from "@react-native-picker/picker";
 const AddScene = ({ navigation }) => {
   const [location, setLocation] = useState("");
   const [date, setDate] = useState(new Date());
-  const [description, setDescription] = useState("");
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showTimePicker, setShowTimePicker] = useState(false);
 
   const [sceneId, setSceneId] = useState("");
   const [caseNumber, setCaseNumber] = useState("");
@@ -63,6 +62,12 @@ const AddScene = ({ navigation }) => {
     }
   };
 
+  const handleTimeChange = (event, selectedTime) => {
+    const currentTime = selectedTime || date;
+    setShowTimePicker(false);
+    setDate(currentTime);
+  };
+
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -91,29 +96,33 @@ const AddScene = ({ navigation }) => {
         />
 
         <Text style={styles.label}>Date and Time</Text>
-        <TouchableOpacity onPress={() => setShowDatePicker(true)}>
-          <TextInput
-            style={styles.input}
-            value={date.toLocaleDateString() + " " + date.toLocaleTimeString()}
-            editable={false}
-          />
+        <TouchableOpacity
+          onPress={() => setShowDatePicker(true)}
+          style={styles.input}
+        >
+          <Text>{date.toLocaleDateString()}</Text>
         </TouchableOpacity>
-
-        {showDatePicker && Platform.OS === "ios" && (
+        {showDatePicker && (
           <DateTimePicker
             value={date}
-            mode="datetime"
-            display="spinner"
+            mode="date"
+            display="default"
             onChange={handleDateChange}
           />
         )}
 
-        {showDatePicker && Platform.OS === "android" && (
+        <TouchableOpacity
+          onPress={() => setShowTimePicker(true)}
+          style={styles.input}
+        >
+          <Text>{date.toLocaleTimeString()}</Text>
+        </TouchableOpacity>
+        {showTimePicker && (
           <DateTimePicker
             value={date}
-            mode="datetime"
+            mode="time"
             display="default"
-            onChange={handleDateChange}
+            onChange={handleTimeChange}
           />
         )}
 
