@@ -10,14 +10,16 @@ import {
   ScrollView,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { Picker } from "@react-native-picker/picker";
 
 const AddLead = ({ navigation }) => {
-  const [leadSource, setLeadSource] = useState("");
-  const [leadDescription, setLeadDescription] = useState("");
+  const [leadId, setLeadId] = useState("");
+  const [description, setDescription] = useState("");
   const [dateReceived, setDateReceived] = useState(new Date());
   const [timeReceived, setTimeReceived] = useState(new Date());
-  const [sourceContactInfo, setSourceContactInfo] = useState("");
-  const [priorityLevel, setPriorityLevel] = useState("Medium");
+  const [leadSource, setLeadSource] = useState("");
+  const [contactInfo, setContactInfo] = useState("");
+  const [priority, setPriority] = useState("Medium");
   const [status, setStatus] = useState("New");
   const [assignedInvestigator, setAssignedInvestigator] = useState("");
   const [assignmentDate, setAssignmentDate] = useState(new Date());
@@ -28,22 +30,18 @@ const AddLead = ({ navigation }) => {
   const [verificationResults, setVerificationResults] = useState("");
   const [linkedEvidence, setLinkedEvidence] = useState("");
   const [evidenceDescription, setEvidenceDescription] = useState("");
-  const [additionalNotes, setAdditionalNotes] = useState("");
-
-  // New state variables for showing the pickers
+  const [notes, setNotes] = useState("");
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
-  const [showAssignmentDatePicker, setShowAssignmentDatePicker] =
-    useState(false);
 
-  const handleSave = () => {
-    if (!leadDescription) {
-      Alert.alert("Error", "Lead Description is required.");
+  const handleSaveLead = () => {
+    if (!leadId || !description || !dateReceived || !status) {
+      Alert.alert("Error", "Please fill all required fields");
       return;
     }
 
-    // Save the lead (this is where you'd add your database save logic)
-    Alert.alert("Success", "Lead added successfully.");
+    // Save the lead to your backend or state
+    Alert.alert("Success", "Lead added successfully");
     navigation.goBack();
   };
 
@@ -61,34 +59,31 @@ const AddLead = ({ navigation }) => {
 
   const handleAssignmentDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || assignmentDate;
-    setShowAssignmentDatePicker(false);
+    setShowDatePicker(false);
     setAssignmentDate(currentDate);
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.label}>Lead Source</Text>
+      <Text style={styles.label}>Lead ID:</Text>
       <TextInput
         style={styles.input}
-        value={leadSource}
-        onChangeText={setLeadSource}
-        placeholder="Enter lead source"
+        value={leadId}
+        onChangeText={setLeadId}
+        placeholder="Enter lead ID"
       />
 
-      <Text style={styles.label}>Lead Description</Text>
+      <Text style={styles.label}>Description:</Text>
       <TextInput
         style={styles.textArea}
-        value={leadDescription}
-        onChangeText={setLeadDescription}
-        placeholder="Enter lead description"
+        value={description}
+        onChangeText={setDescription}
+        placeholder="Enter description"
         multiline
       />
 
-      <Text style={styles.label}>Date Received</Text>
-      <TouchableOpacity
-        onPress={() => setShowDatePicker(true)}
-        style={styles.input}
-      >
+      <Text style={styles.label}>Date Received:</Text>
+      <TouchableOpacity onPress={() => setShowDatePicker(true)} style={styles.input}>
         <Text>{dateReceived.toLocaleDateString()}</Text>
       </TouchableOpacity>
       {showDatePicker && (
@@ -100,11 +95,8 @@ const AddLead = ({ navigation }) => {
         />
       )}
 
-      <Text style={styles.label}>Time Received</Text>
-      <TouchableOpacity
-        onPress={() => setShowTimePicker(true)}
-        style={styles.input}
-      >
+      <Text style={styles.label}>Time Received:</Text>
+      <TouchableOpacity onPress={() => setShowTimePicker(true)} style={styles.input}>
         <Text>{timeReceived.toLocaleTimeString()}</Text>
       </TouchableOpacity>
       {showTimePicker && (
@@ -116,31 +108,45 @@ const AddLead = ({ navigation }) => {
         />
       )}
 
-      <Text style={styles.label}>Source Contact Information</Text>
+      <Text style={styles.label}>Lead Source:</Text>
       <TextInput
         style={styles.input}
-        value={sourceContactInfo}
-        onChangeText={setSourceContactInfo}
-        placeholder="Enter source contact information"
+        value={leadSource}
+        onChangeText={setLeadSource}
+        placeholder="Enter lead source"
       />
 
-      <Text style={styles.label}>Priority Level</Text>
+      <Text style={styles.label}>Contact Information:</Text>
       <TextInput
         style={styles.input}
-        value={priorityLevel}
-        onChangeText={setPriorityLevel}
-        placeholder="Enter priority level"
+        value={contactInfo}
+        onChangeText={setContactInfo}
+        placeholder="Enter contact information"
       />
 
-      <Text style={styles.label}>Status</Text>
-      <TextInput
-        style={styles.input}
-        value={status}
-        onChangeText={setStatus}
-        placeholder="Enter status"
-      />
+      <Text style={styles.label}>Priority Level:</Text>
+      <Picker
+        selectedValue={priority}
+        onValueChange={(itemValue) => setPriority(itemValue)}
+        style={styles.picker}
+      >
+        <Picker.Item label="High" value="High" />
+        <Picker.Item label="Medium" value="Medium" />
+        <Picker.Item label="Low" value="Low" />
+      </Picker>
 
-      <Text style={styles.label}>Assigned Investigator</Text>
+      <Text style={styles.label}>Status:</Text>
+      <Picker
+        selectedValue={status}
+        onValueChange={(itemValue) => setStatus(itemValue)}
+        style={styles.picker}
+      >
+        <Picker.Item label="New" value="New" />
+        <Picker.Item label="In Progress" value="In Progress" />
+        <Picker.Item label="Closed" value="Closed" />
+      </Picker>
+
+      <Text style={styles.label}>Assigned Investigator:</Text>
       <TextInput
         style={styles.input}
         value={assignedInvestigator}
@@ -148,14 +154,11 @@ const AddLead = ({ navigation }) => {
         placeholder="Enter assigned investigator"
       />
 
-      <Text style={styles.label}>Assignment Date</Text>
-      <TouchableOpacity
-        onPress={() => setShowAssignmentDatePicker(true)}
-        style={styles.input}
-      >
+      <Text style={styles.label}>Assignment Date:</Text>
+      <TouchableOpacity onPress={() => setShowDatePicker(true)} style={styles.input}>
         <Text>{assignmentDate.toLocaleDateString()}</Text>
       </TouchableOpacity>
-      {showAssignmentDatePicker && (
+      {showDatePicker && (
         <DateTimePicker
           value={assignmentDate}
           mode="date"
@@ -164,7 +167,7 @@ const AddLead = ({ navigation }) => {
         />
       )}
 
-      <Text style={styles.label}>Initial Actions</Text>
+      <Text style={styles.label}>Initial Actions:</Text>
       <TextInput
         style={styles.textArea}
         value={initialActions}
@@ -173,7 +176,7 @@ const AddLead = ({ navigation }) => {
         multiline
       />
 
-      <Text style={styles.label}>Follow-Up Actions</Text>
+      <Text style={styles.label}>Follow-Up Actions:</Text>
       <TextInput
         style={styles.textArea}
         value={followUpActions}
@@ -182,7 +185,7 @@ const AddLead = ({ navigation }) => {
         multiline
       />
 
-      <Text style={styles.label}>Results</Text>
+      <Text style={styles.label}>Results:</Text>
       <TextInput
         style={styles.textArea}
         value={results}
@@ -191,7 +194,7 @@ const AddLead = ({ navigation }) => {
         multiline
       />
 
-      <Text style={styles.label}>Verification Steps</Text>
+      <Text style={styles.label}>Verification Steps:</Text>
       <TextInput
         style={styles.textArea}
         value={verificationSteps}
@@ -200,7 +203,7 @@ const AddLead = ({ navigation }) => {
         multiline
       />
 
-      <Text style={styles.label}>Verification Results</Text>
+      <Text style={styles.label}>Verification Results:</Text>
       <TextInput
         style={styles.textArea}
         value={verificationResults}
@@ -209,15 +212,15 @@ const AddLead = ({ navigation }) => {
         multiline
       />
 
-      <Text style={styles.label}>Linked Evidence</Text>
+      <Text style={styles.label}>Linked Evidence:</Text>
       <TextInput
         style={styles.input}
         value={linkedEvidence}
         onChangeText={setLinkedEvidence}
-        placeholder="Enter linked evidence IDs"
+        placeholder="Enter linked evidence"
       />
 
-      <Text style={styles.label}>Evidence Description</Text>
+      <Text style={styles.label}>Evidence Description:</Text>
       <TextInput
         style={styles.textArea}
         value={evidenceDescription}
@@ -226,22 +229,25 @@ const AddLead = ({ navigation }) => {
         multiline
       />
 
-      <Text style={styles.label}>Additional Notes</Text>
+      <Text style={styles.label}>Additional Notes:</Text>
       <TextInput
         style={styles.textArea}
-        value={additionalNotes}
-        onChangeText={setAdditionalNotes}
+        value={notes}
+        onChangeText={setNotes}
         placeholder="Enter additional notes"
         multiline
       />
 
-      <Button color="#FFD700" title="Save" onPress={handleSave} />
+      <TouchableOpacity style={styles.saveButton} onPress={handleSaveLead}>
+        <Text style={styles.saveButtonText}>Save</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flexGrow: 1,
     padding: 20,
     backgroundColor: "#FFF8DC",
   },
@@ -266,6 +272,25 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: "#fff",
     height: 100,
+  },
+  picker: {
+    borderWidth: 1,
+    borderColor: "#FFD700",
+    borderRadius: 4,
+    backgroundColor: "#fff",
+    marginBottom: 16,
+  },
+  saveButton: {
+    backgroundColor: "#FFD700",
+    padding: 15,
+    borderRadius: 5,
+    alignItems: "center",
+    marginTop: 20,
+  },
+  saveButtonText: {
+    color: "#000",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
 
