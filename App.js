@@ -19,11 +19,12 @@ import ForensicAnalysisScreen from "./components/ForensicAnalysisScreen";
 import PhotoScreen from "./components/PhotoScreen";
 import CrimeSceneScreen from "./components/CrimeSceneScreen";
 import AddEvidence from "./components/AddEvidence";
-import EditEvidence from "./components/EditEvidence"; 
+import EditEvidence from "./components/EditEvidence";
+import EditEntry from "./components/EditEntryForAccessLog";
+import AddEntry from "./components/AddEntryForAccessLog";
 import AddScene from "./components/AddSceneCrime";
 import ViewScenes from "./components/ViewScenesCrime";
 import AttachMedia from "./components/AttachMediaCrime";
-
 
 const Stack = createStackNavigator();
 
@@ -58,6 +59,8 @@ const App = () => {
         <Stack.Screen name="CrimeSceneScreen" component={CrimeSceneScreen} />
         <Stack.Screen name="AddEvidence" component={AddEvidence} />
         <Stack.Screen name="EditEvidence" component={EditEvidence} />
+        <Stack.Screen name="AddEntry" component={AddEntry} />
+        <Stack.Screen name="EditEntry" component={EditEntry} />
       </Stack.Navigator>
     </NavigationContainer>
   );
