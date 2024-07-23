@@ -1,4 +1,3 @@
-import "react-native-gesture-handler";
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -17,7 +16,14 @@ import ProfilePage from "./components/ProfilePage";
 import CaseScenes from "./components/CaseScenes";
 import EvidenceScreen from "./components/EvidenceScreen";
 import ForensicAnalysisScreen from "./components/ForensicAnalysisScreen";
-import PhotoScreen from "./components/PhotoScreen"; // Import PhotoScreen
+import PhotoScreen from "./components/PhotoScreen";
+import CrimeSceneScreen from "./components/CrimeSceneScreen";
+import AddEvidence from "./components/AddEvidence";
+import EditEvidence from "./components/EditEvidence"; 
+import AddScene from "./components/AddSceneCrime";
+import ViewScenes from "./components/ViewScenesCrime";
+import AttachMedia from "./components/AttachMediaCrime";
+
 
 const Stack = createStackNavigator();
 
@@ -41,12 +47,17 @@ const App = () => {
         <Stack.Screen name="Settings" component={SettingsPage} />
         <Stack.Screen name="CaseScenes" component={CaseScenes} />
         <Stack.Screen name="AccessLogs" component={AccessPage} />
+        <Stack.Screen name="AddScene" component={AddScene} />
+        <Stack.Screen name="ViewScenes" component={ViewScenes} />
+        <Stack.Screen name="AttachMedia" component={AttachMedia} />
         <Stack.Screen
           name="ForensicAnalysisScreen"
           component={ForensicAnalysisScreen}
         />
         <Stack.Screen name="PhotoScreen" component={PhotoScreen} />
-        {/* Add PhotoScreen here */}
+        <Stack.Screen name="CrimeSceneScreen" component={CrimeSceneScreen} />
+        <Stack.Screen name="AddEvidence" component={AddEvidence} />
+        <Stack.Screen name="EditEvidence" component={EditEvidence} />
       </Stack.Navigator>
     </NavigationContainer>
   );

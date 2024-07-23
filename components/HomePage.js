@@ -14,33 +14,6 @@ const HomeScreen = () => {
   const navigation = useNavigation();
   const [profileVisible, setProfileVisible] = useState(false);
 
-  const cases = [
-    {
-      id: "#568746",
-      date: "01/15/13",
-      type: "Aggravated Assault",
-      officer: "Lieutenant James Coburn",
-      victims: "None",
-      suspects: "Gary Sinese",
-      scenes: [
-        {
-          title: "Presumptive Blood Testing",
-          location: "Kitchen Window",
-          date: "Dec 12, 2011 - 11:54 pm",
-          description: "Testing at the kitchen window.",
-          image: "https://via.placeholder.com/150",
-        },
-        {
-          title: "Buccal Swab",
-          location: "Dec 12, 2011 - 9:12 pm",
-          date: "",
-          description: "Buccal swab description.",
-          image: "https://via.placeholder.com/150",
-        },
-      ],
-    },
-  ];
-
   const toggleProfile = () => {
     setProfileVisible(!profileVisible);
   };
@@ -56,41 +29,6 @@ const HomeScreen = () => {
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.scrollView}>
-        <View style={styles.caseList}>
-          {cases.map((caseItem, index) => (
-            <View key={index} style={styles.caseItem}>
-              <View style={styles.caseInfo}>
-                <Text style={styles.caseId}>{caseItem.id}</Text>
-                <Text style={styles.caseDate}>{caseItem.date}</Text>
-                <Text style={styles.caseType}>{caseItem.type}</Text>
-              </View>
-              <View style={styles.caseDetails}>
-                <Text style={styles.caseDetailsText}>
-                  Opened by: {caseItem.officer}
-                </Text>
-                <Text style={styles.caseDetailsText}>
-                  Victims: {caseItem.victims}
-                </Text>
-                <Text style={styles.caseDetailsText}>
-                  Suspects: {caseItem.suspects}
-                </Text>
-              </View>
-              <TouchableOpacity
-                style={styles.caseScenes}
-                onPress={() =>
-                  navigation.navigate("CaseScenes", {
-                    caseId: caseItem.id,
-                    scenes: caseItem.scenes,
-                  })
-                }
-              >
-                <Text style={styles.scenesText}>
-                  {caseItem.scenes.length} Scenes
-                </Text>
-              </TouchableOpacity>
-            </View>
-          ))}
-        </View>
         <View style={styles.recordSection}>
           <Text style={styles.sectionTitle}>Record</Text>
           <View style={styles.iconContainer}>
@@ -115,8 +53,10 @@ const HomeScreen = () => {
               <FontAwesome name="camera" size={50} color="#FFD700" />
               <Text style={styles.iconText}>Photo Logs</Text>
             </TouchableOpacity>
-
-            <TouchableOpacity style={styles.iconButton}>
+            <TouchableOpacity
+              style={styles.iconButton}
+              onPress={() => navigation.navigate("CrimeSceneScreen")}
+            >
               <FontAwesome name="map" size={50} color="#FFD700" />
               <Text style={styles.iconText}>Crime Scenes</Text>
             </TouchableOpacity>
@@ -199,50 +139,6 @@ const styles = StyleSheet.create({
     color: "#000",
     marginTop: 5,
     textAlign: "center",
-  },
-  caseList: {
-    flex: 1,
-  },
-  caseItem: {
-    backgroundColor: "#FFF8DC",
-    marginHorizontal: 10,
-    marginVertical: 5,
-    padding: 15,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "#FFD700",
-  },
-  caseInfo: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 10,
-  },
-  caseId: {
-    color: "#FFD700",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  caseDate: {
-    color: "#000",
-    fontSize: 14,
-  },
-  caseType: {
-    color: "#000",
-    fontSize: 14,
-  },
-  caseDetails: {
-    marginBottom: 10,
-  },
-  caseDetailsText: {
-    color: "#000",
-    fontSize: 14,
-  },
-  caseScenes: {
-    alignItems: "flex-end",
-  },
-  scenesText: {
-    color: "#FFD700",
-    fontWeight: "bold",
   },
   profileContainer: {
     position: "absolute",
