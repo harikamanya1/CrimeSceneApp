@@ -34,6 +34,10 @@ import ForensicAnalysisMain from "./components/ForensicAnalysisMain";
 import LinkForensicAnalysis from "./components/LinkForensicAnalysis";
 import UpdateForensicAnalysis from "./components/UpdateForensicAnalysis";
 import ViewForensicAnalysis from "./components/ViewForensicAnalysis";
+import InterviewsMain from "./components/InterviewsMain";
+import RecordInterview from "./components/RecordInterview";
+import ViewInterviews from "./components/ViewInterviews";
+import AttachAudio from "./components/AttachAudio";
 
 const Stack = createStackNavigator();
 
@@ -74,6 +78,10 @@ const App = () => {
         <Stack.Screen name="ViewPeople" component={ViewPeople} />
         <Stack.Screen name="ManageNotes" component={ManageNotes} />
         <Stack.Screen name="AttachMedia" component={AttachMedia} />
+        <Stack.Screen name="InterviewsMain" component={InterviewsMain} />
+        <Stack.Screen name="RecordInterview" component={RecordInterview} />
+        <Stack.Screen name="ViewInterviews" component={ViewInterviews} />
+        <Stack.Screen name="AttachAudio" component={AttachAudio} />
         <Stack.Screen
           name="CreateForensicAnalysis"
           component={CreateForensicAnalysis}

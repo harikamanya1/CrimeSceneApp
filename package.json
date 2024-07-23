@@ -40,7 +40,8 @@
     "react-native-tab-view": "^3.5.2",
     "react-native-vector-icons": "^10.1.0",
     "react-native-web": "^0.19.12",
-    "styled-components": "^6.1.12"
+    "styled-components": "^6.1.12",
+    "expo-av": "~14.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
