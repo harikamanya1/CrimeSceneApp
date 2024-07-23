@@ -81,7 +81,10 @@ const HomeScreen = () => {
               <FontAwesome name="microphone" size={50} color="#FFD700" />
               <Text style={styles.iconText}>Interviews</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.iconButton}>
+            <TouchableOpacity
+              style={styles.iconButton}
+              onPress={() => navigation.navigate("LeadsMain")}
+            >
               <FontAwesome name="lightbulb-o" size={50} color="#FFD700" />
               <Text style={styles.iconText}>Leads</Text>
             </TouchableOpacity>

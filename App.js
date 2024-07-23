@@ -38,6 +38,10 @@ import InterviewsMain from "./components/InterviewsMain";
 import RecordInterview from "./components/RecordInterview";
 import ViewInterviews from "./components/ViewInterviews";
 import AttachAudio from "./components/AttachAudio";
+import LeadsMain from "./components/LeadsMain";
+import ViewLeads from "./components/ViewLeads";
+import UpdateLeadStatus from "./components/UpdateLeadStatus";
+import AddLead from "./components/AddLead";
 
 const Stack = createStackNavigator();
 
@@ -82,6 +86,10 @@ const App = () => {
         <Stack.Screen name="RecordInterview" component={RecordInterview} />
         <Stack.Screen name="ViewInterviews" component={ViewInterviews} />
         <Stack.Screen name="AttachAudio" component={AttachAudio} />
+        <Stack.Screen name="LeadsMain" component={LeadsMain} />
+        <Stack.Screen name="ViewLeads" component={ViewLeads} />
+        <Stack.Screen name="UpdateLeadStatus" component={UpdateLeadStatus} />
+        <Stack.Screen name="AddLead" component={AddLead} />
         <Stack.Screen
           name="CreateForensicAnalysis"
           component={CreateForensicAnalysis}
