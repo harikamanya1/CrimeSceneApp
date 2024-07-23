@@ -60,13 +60,16 @@ const HomeScreen = () => {
               <FontAwesome name="map" size={50} color="#FFD700" />
               <Text style={styles.iconText}>Crime Scenes</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.iconButton}>
+            <TouchableOpacity
+              style={styles.iconButton}
+              onPress={() => navigation.navigate("PeopleOfInterest")}
+            >
               <FontAwesome name="users" size={50} color="#FFD700" />
               <Text style={styles.iconText}>People of Interest</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.iconButton}
-              onPress={() => navigation.navigate("ForensicAnalysisScreen")}
+              onPress={() => navigation.navigate("ForensicAnalysisMain")}
             >
               <FontAwesome name="flask" size={50} color="#FFD700" />
               <Text style={styles.iconText}>Forensic Analysis</Text>

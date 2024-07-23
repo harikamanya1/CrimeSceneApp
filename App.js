@@ -25,6 +25,15 @@ import AddEntry from "./components/AddEntryForAccessLog";
 import AddScene from "./components/AddSceneCrime";
 import ViewScenes from "./components/ViewScenesCrime";
 import AttachMedia from "./components/AttachMediaCrime";
+import PeopleOfInterest from "./components/PeopleOfInterest";
+import ViewPeople from "./components/ViewPeople";
+import ManageNotes from "./components/ManageNotes";
+import AddPerson from "./components/AddPerson";
+import CreateForensicAnalysis from "./components/CreateForensicAnalysis";
+import ForensicAnalysisMain from "./components/ForensicAnalysisMain";
+import LinkForensicAnalysis from "./components/LinkForensicAnalysis";
+import UpdateForensicAnalysis from "./components/UpdateForensicAnalysis";
+import ViewForensicAnalysis from "./components/ViewForensicAnalysis";
 
 const Stack = createStackNavigator();
 
@@ -50,7 +59,7 @@ const App = () => {
         <Stack.Screen name="AccessLogs" component={AccessPage} />
         <Stack.Screen name="AddScene" component={AddScene} />
         <Stack.Screen name="ViewScenes" component={ViewScenes} />
-        <Stack.Screen name="AttachMedia" component={AttachMedia} />
+        <Stack.Screen name="AddPerson" component={AddPerson} />
         <Stack.Screen
           name="ForensicAnalysisScreen"
           component={ForensicAnalysisScreen}
@@ -61,6 +70,30 @@ const App = () => {
         <Stack.Screen name="EditEvidence" component={EditEvidence} />
         <Stack.Screen name="AddEntry" component={AddEntry} />
         <Stack.Screen name="EditEntry" component={EditEntry} />
+        <Stack.Screen name="PeopleOfInterest" component={PeopleOfInterest} />
+        <Stack.Screen name="ViewPeople" component={ViewPeople} />
+        <Stack.Screen name="ManageNotes" component={ManageNotes} />
+        <Stack.Screen name="AttachMedia" component={AttachMedia} />
+        <Stack.Screen
+          name="CreateForensicAnalysis"
+          component={CreateForensicAnalysis}
+        />
+        <Stack.Screen
+          name="ForensicAnalysisMain"
+          component={ForensicAnalysisMain}
+        />
+        <Stack.Screen
+          name="LinkForensicAnalysis"
+          component={LinkForensicAnalysis}
+        />
+        <Stack.Screen
+          name="UpdateForensicAnalysis"
+          component={UpdateForensicAnalysis}
+        />
+        <Stack.Screen
+          name="ViewForensicAnalysis"
+          component={ViewForensicAnalysis}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
