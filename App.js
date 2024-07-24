@@ -45,6 +45,29 @@ import AddLead from "./components/AddLead";
 import SketchDetailScreen from "./components/SketchDetailScreen";
 import SketchLogScreen from "./components/SketchLogScreen";
 import CreateSketchScreen from "./components/CreateSketchScreen";
+import Collaboration from "./components/Collaboration";
+import Notes from "./components/Notes";
+import Users from "./components/Users";
+import Tasks from "./components/Tasks";
+import Documents from "./components/Documents";
+import UserProfile from "./components/UserProfileforcollaboration";
+import DocumentDetail from "./components/DocumentDetailofcollaboration";
+import NoteDetail from "./components/NoteDetailofcollaboration";
+import TaskDetail from "./components/TaskDetailofcollaboration";
+import Management from "./components/Management";
+import WorkflowTemplates from "./components/WorkflowTemplates";
+import TeamManagement from "./components/TeamManagement";
+import TaskAssignment from "./components/TaskAssignment";
+import ResourceAllocation from "./components/ResourceAllocation";
+import CaseManagement from "./components/CaseManagement";
+import CaseDetail from "./components/CaseDetailofmanagement";
+import TeamDetail from "./components/TeamDetailofmanagement";
+import ResourceDetail from "./components/ResourceDetailofmanagement";
+import TemplateDetail from "./components/TemplateDetailofmanagement";
+import ReportScreen from "./components/ReportScreen";
+import GenerateReport from "./components/GenerateReport";
+import ReportDetail from "./components/ReportDetail";
+
 
 const Stack = createStackNavigator();
 
@@ -93,6 +116,22 @@ const App = () => {
         <Stack.Screen name="ViewLeads" component={ViewLeads} />
         <Stack.Screen name="UpdateLeadStatus" component={UpdateLeadStatus} />
         <Stack.Screen name="AddLead" component={AddLead} />
+        <Stack.Screen name="Management" component={Management} />
+        <Stack.Screen name="WorkflowTemplates" component={WorkflowTemplates} />
+        <Stack.Screen name="TeamManagement" component={TeamManagement} />
+        <Stack.Screen name="TaskAssignment" component={TaskAssignment} />
+        <Stack.Screen name="CaseManagement" component={CaseManagement} />
+        <Stack.Screen name="CaseDetail" component={CaseDetail} />
+        <Stack.Screen name="TeamDetail" component={TeamDetail} />
+        <Stack.Screen name="ResourceDetail" component={ResourceDetail} />
+        <Stack.Screen name="TemplateDetail" component={TemplateDetail} />
+        <Stack.Screen name="ReportScreen" component={ReportScreen} />
+        <Stack.Screen name="GenerateReport" component={GenerateReport} />
+        <Stack.Screen name="ReportDetail" component={ReportDetail} />
+        <Stack.Screen
+          name="ResourceAllocation"
+          component={ResourceAllocation}
+        />
         <Stack.Screen
           name="SketchDetailScreen"
           component={SketchDetailScreen}
@@ -122,6 +161,15 @@ const App = () => {
           name="ViewForensicAnalysis"
           component={ViewForensicAnalysis}
         />
+        <Stack.Screen name="Collaboration" component={Collaboration} />
+        <Stack.Screen name="Notes" component={Notes} />
+        <Stack.Screen name="Users" component={Users} />
+        <Stack.Screen name="Tasks" component={Tasks} />
+        <Stack.Screen name="Documents" component={Documents} />
+        <Stack.Screen name="UserProfile" component={UserProfile} />
+        <Stack.Screen name="DocumentDetail" component={DocumentDetail} />
+        <Stack.Screen name="NoteDetail" component={NoteDetail} />
+        <Stack.Screen name="TaskDetail" component={TaskDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );
