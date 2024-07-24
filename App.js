@@ -42,6 +42,9 @@ import LeadsMain from "./components/LeadsMain";
 import ViewLeads from "./components/ViewLeads";
 import UpdateLeadStatus from "./components/UpdateLeadStatus";
 import AddLead from "./components/AddLead";
+import SketchDetailScreen from "./components/SketchDetailScreen";
+import SketchLogScreen from "./components/SketchLogScreen";
+import CreateSketchScreen from "./components/CreateSketchScreen";
 
 const Stack = createStackNavigator();
 
@@ -90,6 +93,15 @@ const App = () => {
         <Stack.Screen name="ViewLeads" component={ViewLeads} />
         <Stack.Screen name="UpdateLeadStatus" component={UpdateLeadStatus} />
         <Stack.Screen name="AddLead" component={AddLead} />
+        <Stack.Screen
+          name="SketchDetailScreen"
+          component={SketchDetailScreen}
+        />
+        <Stack.Screen name="SketchLogScreen" component={SketchLogScreen} />
+        <Stack.Screen
+          name="CreateSketchScreen"
+          component={CreateSketchScreen}
+        />
         <Stack.Screen
           name="CreateForensicAnalysis"
           component={CreateForensicAnalysis}
