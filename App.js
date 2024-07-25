@@ -68,7 +68,6 @@ import ReportScreen from "./components/ReportScreen";
 import GenerateReport from "./components/GenerateReport";
 import ReportDetail from "./components/ReportDetail";
 
-
 const Stack = createStackNavigator();
 
 const App = () => {
