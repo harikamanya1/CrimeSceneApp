@@ -14,7 +14,7 @@ const LoginPage = ({ navigation }) => {
     <ImageBackground source={require('../assets/crime3.jpg')} style={styles.background} resizeMode="cover">
       <View style={styles.overlay}>
         <View style={styles.form}>
-          <Image source={require('../assets/icon.png')} style={styles.logo} />
+          <Image source={require('../assets/logo.png')} style={styles.logo} />
           <Text style={styles.title}>PTRAX</Text>
           <Text style={styles.subtitle}>Sign in to continue.</Text>
           <TextInput

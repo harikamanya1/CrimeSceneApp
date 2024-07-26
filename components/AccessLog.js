@@ -16,8 +16,7 @@ const AccessLog = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    // Fetch logs from your backend or state
-    // For now, we'll use dummy data
+   
     setLogs([
       {
         id: "1",
@@ -33,13 +32,10 @@ const AccessLog = () => {
         description: "Entry 2",
         userId: "User2",
       },
-      // Add more dummy entries
     ]);
   }, []);
 
   const handleSearch = () => {
-    // Implement search functionality here
-    // For now, we'll filter the logs locally
     const filteredLogs = logs.filter(
       (log) =>
         log.description.includes(searchTerm) || log.userId.includes(searchTerm)
@@ -100,13 +96,18 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 20,
+    marginTop: 30,
   },
   searchInput: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    padding: 8,
     flex: 1,
+    height: 40,
+    backgroundColor: "#FFF",
+    borderRadius: 20,
+    paddingHorizontal: 20,
+    borderColor: "#ccc",
+    borderWidth: 1,
     marginRight: 10,
+    fontSize: 16,
   },
   logItem: {
     backgroundColor: "#fff",

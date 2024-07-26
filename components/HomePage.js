@@ -21,10 +21,13 @@ const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+        <TouchableOpacity
+          style={styles.iconMargin}
+          onPress={() => navigation.navigate("Home")}
+        >
           <FontAwesome name="home" size={30} color="#FFD700" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={toggleProfile}>
+        <TouchableOpacity style={styles.iconMargin} onPress={toggleProfile}>
           <FontAwesome name="user" size={30} color="#FFD700" />
         </TouchableOpacity>
       </View>
@@ -115,9 +118,14 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 20,
+    paddingVertical: 20,
+    paddingHorizontal: 30,
     alignItems: "center",
     backgroundColor: "#fff",
+    paddingTop: 50, // Additional top padding to move icons down
+  },
+  iconMargin: {
+    marginHorizontal: 20,
   },
   scrollView: {
     flex: 1,

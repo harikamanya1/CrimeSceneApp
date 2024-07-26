@@ -89,43 +89,44 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#FFF8DC', // Light yellow background
+    backgroundColor: "#FFF8DC", // Light yellow background
   },
   label: {
     fontSize: 16,
     marginVertical: 8,
-    color: '#000', // Black text
+    color: "#000",
+    marginTop: 30, // Black text
   },
   input: {
     borderWidth: 1,
-    borderColor: '#FFD700', // Gold border
+    borderColor: "#FFD700", // Gold border
     padding: 8,
     marginBottom: 10,
-    backgroundColor: '#FFF', // White background
+    backgroundColor: "#FFF", // White background
     borderRadius: 5,
-    justifyContent: 'center',
+    justifyContent: "center",
     height: 40,
   },
   textArea: {
     borderWidth: 1,
-    borderColor: '#FFD700', // Gold border
+    borderColor: "#FFD700", // Gold border
     padding: 8,
     marginBottom: 10,
-    backgroundColor: '#FFF', // White background
+    backgroundColor: "#FFF", // White background
     borderRadius: 5,
     height: 100,
   },
   button: {
-    backgroundColor: '#FFD700', // Gold button background
+    backgroundColor: "#FFD700", // Gold button background
     padding: 15,
     borderRadius: 5,
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 20,
   },
   buttonText: {
-    color: '#000', // Black text
+    color: "#000", // Black text
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });
 

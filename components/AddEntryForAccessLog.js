@@ -191,7 +191,8 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     marginVertical: 8,
-    color: '#000', // Black text
+    color: '#000', 
+    marginTop:30,
   },
   input: {
     borderWidth: 1,
