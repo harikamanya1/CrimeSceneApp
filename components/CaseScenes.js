@@ -1,8 +1,19 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, StyleSheet, Image, TouchableOpacity, Modal, TextInput, Button, Dimensions } from 'react-native';
-import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Modal,
+  TextInput,
+  Button,
+  Dimensions,
+} from "react-native";
+import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 
-const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+const { width: screenWidth } = Dimensions.get("window");
 
 const CaseScenes = ({ route }) => {
   const { caseId, scenes } = route.params;
@@ -17,62 +28,77 @@ const CaseScenes = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.sidebar}>
-        <View style={styles.caseInfo}>
-          <Image source={{ uri: 'https://via.placeholder.com/100' }} style={styles.personImage} />
+      <View style={styles.row}>
+        <View style={styles.caseInfoContainer}>
+          <Image
+            source={{ uri: "https://via.placeholder.com/100" }}
+            style={styles.personImage}
+          />
           <Text style={styles.caseId}>Case ID: {currentCaseId}</Text>
           <Text style={styles.address}>123 Main St, Somewhere, DC 15243</Text>
-          <Text style={styles.details}>Time of Arrival: Dec 12, 2011 - 5:34pm</Text>
-          <Text style={styles.officer}>Investigating Officer: Officer James Smith</Text>
+          <Text style={styles.details}>
+            Time of Arrival: Dec 12, 2011 - 5:34pm
+          </Text>
+          <Text style={styles.officer}>
+            Investigating Officer: Officer James Smith
+          </Text>
+          <TouchableOpacity
+            style={styles.editButton}
+            onPress={() => setModalVisible(true)}
+          >
+            <Text style={styles.editButtonText}>Edit</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.editButton} onPress={() => setModalVisible(true)}>
-          <Text style={styles.editButtonText}>Edit</Text>
-        </TouchableOpacity>
-      </ScrollView>
-      <View style={styles.content}>
-        <ScrollView style={styles.scenesList}>
-          {scenes.map((scene, index) => (
-            <View key={index} style={styles.sceneItem}>
-              <View style={styles.sceneInfo}>
-                <Text style={styles.sceneTitle}>{scene.title}</Text>
-                <Text style={styles.sceneLocation}>{scene.location}</Text>
-                <Text style={styles.sceneDate}>{scene.date}</Text>
+        <View style={styles.scenesContainer}>
+          <ScrollView style={styles.scenesList}>
+            {scenes.map((scene, index) => (
+              <View key={index} style={styles.sceneItem}>
+                <View style={styles.sceneInfo}>
+                  <Text style={styles.sceneTitle}>{scene.title}</Text>
+                  <Text style={styles.sceneLocation}>{scene.location}</Text>
+                  <Text style={styles.sceneDate}>{scene.date}</Text>
+                </View>
+                {scene.image && (
+                  <Image
+                    source={{ uri: scene.image }}
+                    style={styles.sceneImage}
+                  />
+                )}
+                <Text style={styles.sceneDescription}>{scene.description}</Text>
               </View>
-              {scene.image && <Image source={{ uri: scene.image }} style={styles.sceneImage} />}
-              <Text style={styles.sceneDescription}>{scene.description}</Text>
-            </View>
-          ))}
-        </ScrollView>
-        <View style={styles.footer}>
-          <TouchableOpacity style={styles.footerItem}>
-            <FontAwesome name="unlock" size={24} color="white" />
-            <Text style={styles.footerText}>Access</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.footerItem}>
-            <MaterialIcons name="folder" size={24} color="white" />
-            <Text style={styles.footerText}>Evidence</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.footerItem}>
-            <FontAwesome name="comments" size={24} color="white" />
-            <Text style={styles.footerText}>Interview</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.footerItem}>
-            <FontAwesome name="sticky-note" size={24} color="white" />
-            <Text style={styles.footerText}>Note</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.footerItem}>
-            <FontAwesome name="camera" size={24} color="white" />
-            <Text style={styles.footerText}>Photos</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.footerItem}>
-            <FontAwesome name="wrench" size={24} color="white" />
-            <Text style={styles.footerText}>Techniques</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.footerItem}>
-            <FontAwesome name="pencil" size={24} color="white" />
-            <Text style={styles.footerText}>Sketch</Text>
-          </TouchableOpacity>
+            ))}
+          </ScrollView>
         </View>
+      </View>
+      <View style={styles.footer}>
+        <TouchableOpacity style={styles.footerItem}>
+          <FontAwesome name="unlock" size={24} color="black" />
+          <Text style={styles.footerText}>Access</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.footerItem}>
+          <MaterialIcons name="folder" size={24} color="black" />
+          <Text style={styles.footerText}>Evidence</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.footerItem}>
+          <FontAwesome name="comments" size={24} color="black" />
+          <Text style={styles.footerText}>Interview</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.footerItem}>
+          <FontAwesome name="sticky-note" size={24} color="black" />
+          <Text style={styles.footerText}>Note</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.footerItem}>
+          <FontAwesome name="camera" size={24} color="black" />
+          <Text style={styles.footerText}>Photos</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.footerItem}>
+          <FontAwesome name="wrench" size={24} color="black" />
+          <Text style={styles.footerText}>Techniques</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.footerItem}>
+          <FontAwesome name="pencil" size={24} color="black" />
+          <Text style={styles.footerText}>Sketch</Text>
+        </TouchableOpacity>
       </View>
       <Modal visible={modalVisible} transparent={true} animationType="slide">
         <View style={styles.modalContainer}>
@@ -95,17 +121,18 @@ const CaseScenes = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
-    backgroundColor: '#1a1a1a',
+    backgroundColor: "#FFF8DC",
   },
-  sidebar: {
-    width: screenWidth * 0.25,
-    backgroundColor: '#333',
+  row: {
+    flexDirection: "row",
+    flex: 1,
+  },
+  caseInfoContainer: {
+    width: screenWidth * 0.4,
+    backgroundColor: "#333",
     padding: 20,
-  },
-  caseInfo: {
-    alignItems: 'center',
-    marginBottom: 20,
+    justifyContent: "center",
+    alignItems: "center",
   },
   personImage: {
     width: 100,
@@ -113,46 +140,48 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   caseId: {
-    color: '#FFD700',
+    color: "#FFD700",
     fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 10,
   },
   address: {
-    color: '#FFF',
+    color: "#FFF",
     fontSize: 16,
-    textAlign: 'center',
+    textAlign: "center",
+    marginBottom: 10,
   },
   details: {
-    color: '#FFF',
+    color: "#FFF",
     fontSize: 16,
-    textAlign: 'center',
+    textAlign: "center",
+    marginBottom: 10,
   },
   officer: {
-    color: '#FFF',
+    color: "#FFF",
     fontSize: 16,
-    textAlign: 'center',
+    textAlign: "center",
+    marginBottom: 20,
   },
   editButton: {
-    backgroundColor: '#FFD700',
+    backgroundColor: "#FFD700",
     padding: 10,
     borderRadius: 5,
-    marginTop: 20,
   },
   editButtonText: {
-    color: '#000',
-    fontWeight: 'bold',
-    textAlign: 'center',
+    color: "#000",
+    fontWeight: "bold",
   },
-  content: {
-    width: screenWidth * 0.75,
+  scenesContainer: {
+    width: screenWidth * 0.6,
     padding: 20,
   },
   scenesList: {
     flex: 1,
   },
   sceneItem: {
-    backgroundColor: '#2c2c2c',
+    backgroundColor: "#444",
     marginBottom: 10,
     padding: 15,
     borderRadius: 10,
@@ -161,63 +190,63 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   sceneTitle: {
-    color: '#FFD700',
+    color: "#FFD700",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   sceneLocation: {
-    color: '#FFF',
+    color: "#FFF",
   },
   sceneDate: {
-    color: '#FFF',
+    color: "#FFF",
   },
   sceneImage: {
-    width: '100%',
+    width: "100%",
     height: 200,
     marginVertical: 10,
   },
   sceneDescription: {
-    color: '#DDD',
+    color: "#DDD",
   },
   footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
     paddingVertical: 10,
     borderTopWidth: 1,
-    borderColor: '#444',
-    backgroundColor: '#1a1a1a',
+    borderColor: "#444",
+    backgroundColor: "#FFD700",
   },
   footerItem: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   footerText: {
-    color: 'white',
+    color: "black",
     fontSize: 12,
     marginTop: 5,
   },
   modalContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
   },
   modalView: {
-    width: '80%',
-    backgroundColor: 'white',
+    width: "80%",
+    backgroundColor: "white",
     borderRadius: 10,
     padding: 20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   modalTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
   },
   modalInput: {
-    width: '100%',
+    width: "100%",
     padding: 10,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     marginBottom: 20,
   },
 });
